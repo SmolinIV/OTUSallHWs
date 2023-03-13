@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.5)
 project(03.homework CXX)
 
 add_executable(Guess_the_Number
-	HW2_GTN.cpp
-	valuesManip.cpp
+	HW3_GTN.cpp
+	check_value.cpp
+  tableActions.cpp
 )
 
 set_target_properties(Guess_the_Number PROPERTIES

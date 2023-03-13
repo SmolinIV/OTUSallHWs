@@ -1,28 +1,43 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include "check_value.h"
 
-int main() {
 
-	const int target_value = 54;
-	int current_value = 0;
-	bool not_win = true;
+// јлгоритм игры. «апрашиваем у игрока число, сравниваем его с загаданным. ≈сли не совпало - подсказываем, больше число игрока или меньше.
+// ≈сли совпало - возвращаем количество попыток.
+int check_value(const int guessedNumber)
+{
 
-	std::cout << "Enter your guess:" << std::endl;
+	int userNumber;
+	int attempts = 0;
+	while (true)
+	{
+		std::cout << "Enter your guess: ";
+		std::cin >> userNumber;
 
-	do {
-		std::cin >> current_value;
-
-		if (current_value < target_value) {
-			std::cout << "less than " << current_value << std::endl;
+		if(std::cin.fail())
+		{
+			std::cout << "Incorrect input." << std::endl;
+			exit(-1);
 		}
-		else if (current_value > target_value) {
-			std::cout << "greater than " << current_value << std::endl;
+
+		++attempts;
+		if (guessedNumber > userNumber)
+		{
+			std::cout << "Hidden number is greater than " << userNumber << std::endl;
 		}
-		else {
-			std::cout << "you win!" << std::endl;
+		else if (guessedNumber < userNumber)
+		{
+			std::cout << "Hidden number is less than " << userNumber << std::endl;
+		}
+		else
+		{
+			std::cout << "You win!" << std::endl;
 			break;
 		}
 
-	} while(true);
+	}
 
-	return 0;
+	return attempts;
 }
