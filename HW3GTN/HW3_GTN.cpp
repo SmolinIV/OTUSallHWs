@@ -110,7 +110,8 @@ int main(int argc, char **argv)
 	std::cout << "You need " << attempts << (attempts > 1 ? " attempts" : " attempt") << " to guess the number.\n\n"
 			  << "Now let's see the best results of this game!\n" << std::endl;
 	
-	//putBestScore(userName, attempts);
+	
+	putBestScore(userName, attempts);
 
 	printTable();
 

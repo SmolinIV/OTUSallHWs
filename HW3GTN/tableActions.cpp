@@ -1,15 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
+#include <iomanip>
+#include <conio.h>
 
 // Вывод таблицы на экран
 void printTable()
 {
-	const std::string high_scores_filename = "high_scores.txt";
-	std::ifstream in_file{high_scores_filename};
-	if (!in_file.is_open())
+	const std::string highScoresFilename = "high_scores.txt";
+	std::ifstream inFile{highScoresFilename};
+	if (!inFile.is_open())
 	{
-		std::cout << "Failed to open file for read: " << high_scores_filename << "!" << std::endl;
+		std::cout << "Failed to open file for read: " << highScoresFilename << "!" << std::endl;
 		exit(-1);
 	}
 
@@ -18,49 +21,95 @@ void printTable()
 	int high_score = 0;
 	while (true)
 	{
-		std::cout << in_file.tellg()<< '\t';
 		// Read the username first
-		in_file >> userName;
-		std::cout << in_file.tellg()<< '\t';
+		inFile >> userName;
 		// Read the high score next
-		in_file >> high_score;
-		std::cout << in_file.tellg()<< '\t';
+		inFile >> high_score;
 		// Ignore the end of line symbol
-		in_file.ignore();
+		inFile.ignore();
 
-		if (in_file.fail())
+		if (inFile.fail())
 		{
 			break;
 		}
 
 		// Print the information to the screen
-		std::cout << userName << "\t\t" << high_score << "\t\t" << in_file.tellg() << std::endl;
+		std::cout << userName << "\t\t" << high_score << std::endl;
 	}
-	in_file.close();
-	std::cout << "goodjob" << std::endl;
+	inFile.close();
+
 	exit(0);
 	
 }
 
-// Внесение данных в таблицу
+// Внесение новых данных в таблицу с учётом
 void putBestScore(std::string userName, int userScore)
 {
-	const int reservedCells = 10;
-	std::vector <std::string> namesFromTaable;
-	
-	namesFromTaable.reserve(reservedCells);
-    const std::string high_scores_filename = "high_scores.txt";
-    std::string name, score;
+    const std::string highScoresFilename = "high_scores.txt";
+	std::string name,
+				score;
+	int namePositionInTheTable,
+		nameInTheTableLength;
+	bool isInTheTable = false;
 
-    std::fstream ioFile{high_scores_filename, std::fstream::in | std::fstream::out | std::fstream::app};
-    if (!ioFile.is_open())
-    {
-        std::cout << "Failed to open file for write: " << high_scores_filename << "!" << std::endl;
-        exit(-1);
-    }
-        // Append new results to the table:
-        ioFile << userName << ' ';
-        ioFile << userScore;
-        ioFile << std::endl;
-        
+
+	std::fstream fFile;
+	fFile.open(highScoresFilename, std::ios_base::in);
+
+	if (!fFile.is_open())
+	{
+		std::cout << "Failed to open file for read: " << highScoresFilename << "!" << std::endl;
+		exit(-1);
+	}
+
+	while (true)
+	{
+		fFile >> name;
+		if (name == userName)
+		{
+			namePositionInTheTable = (int)fFile.tellg();
+			nameInTheTableLength = (int)name.length();
+			isInTheTable = true;
+		}
+		fFile >> score;
+		if (isInTheTable)
+		{
+			if (userScore > std::stoi(score))
+			{
+				fFile.close();
+				return;
+			}
+		}
+		fFile.ignore();
+		if (fFile.fail() || isInTheTable)
+		{
+			break;
+		}
+	}
+
+	fFile.close();
+
+	if (isInTheTable)
+	{
+		fFile.open(highScoresFilename, std::ios_base::in | std::ios_base::out | std::ios_base::ate);
+		if (!fFile.is_open())
+	{
+		std::cout << "Failed to open file for write: " << highScoresFilename << "!" << std::endl;
+		exit(-1);
+	}
+		fFile.seekp(namePositionInTheTable - nameInTheTableLength, std::ios_base::beg);
+		fFile << std::setw(50) << userName << " " << userScore;
+	}
+	else
+	{
+		fFile.open(highScoresFilename, std::ios_base::in | std::ios_base::out | std::ios_base::app);
+		if (!fFile.is_open())
+	{
+		std::cout << "Failed to open file for write: " << highScoresFilename << "!" << std::endl;
+		exit(-1);
+	}
+		fFile << std::setw(50) << userName << " " << userScore << std::endl;
+	}
+
+	fFile.close();
 }
