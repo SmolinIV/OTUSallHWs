@@ -110,43 +110,9 @@ int main(int argc, char **argv)
 	std::cout << "You need " << attempts << (attempts > 1 ? " attempts" : " attempt") << " to guess the number.\n\n"
 			  << "Now let's see the best results of this game!\n" << std::endl;
 	
-	putBestScore(userName, attempts);
+	//putBestScore(userName, attempts);
 
 	printTable();
 
 	exit(0);
-
-	/*// Ask about name
-	std::cout << "\n\nHi! Enter your name, please:" << std::endl;
-	std::string user_name;
-	std::cin >> user_name;
-
-	// Get the last high score
-	std::cout << "Enter your high score:" << std::endl;
-	int attempts_count = 0;
-	getValue(attempts_count, 1, INT_MAX);
-
-
-	// Write new high score to the records table
-	{
-		// We should open the output file in the append mode - we don't want
-		// to erase previous results.
-		std::ofstream out_file{ high_scores_filename, std::ios_base::app };
-		if (!out_file.is_open()) {
-			std::cout << "Failed to open file for write: " << high_scores_filename << "!" << std::endl;
-			return -1;
-		}
-
-		// Append new results to the table:
-		out_file << user_name << ' ';
-		out_file << attempts_count;
-		out_file << std::endl;
-	} // end of score here just to mark end of the logic block of code
-
-	// Read the high score file and print all results
-	{
-
-	}
-
-	return 0;*/
 }
