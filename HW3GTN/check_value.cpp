@@ -4,13 +4,13 @@
 #include "check_value.h"
 
 
-// јлгоритм игры. «апрашиваем у игрока число, сравниваем его с загаданным. ≈сли не совпало - подсказываем, больше число игрока или меньше.
-// ≈сли совпало - возвращаем количество попыток.
+// Guessing proccess. We ask the player for a number, compare it with the guessed one. If it doesn't match, we suggest whether the player's number is greater or less.
+// If it matches, we report victory and return the number of attempts.
 int check_value(const int guessedNumber)
 {
 
-	int userNumber;
-	int attempts = 0;
+	int userNumber;		// Nubmer entered by user
+	int attempts = 0;	// user's attemts to guess the number
 	while (true)
 	{
 		std::cout << "Enter your guess: ";

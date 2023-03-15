@@ -1,11 +1,8 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
-#include <Windows.h>
 #include "check_value.h"
 #include "tableActions.h"
-
-
 
 int main(int argc, char **argv)
 {
@@ -13,17 +10,18 @@ int main(int argc, char **argv)
 	std::cout << "\n\n=============================== Guess the number ===============================\n"
 			  << std::endl;
 
-	int maxValue = 0;
 
-	bool incorrectInput = false;
+	int maxValue = 0;				// upper limit of guessing range. set when receiving parameters
+	bool incorrectInput = false;	// Flag of incorrect parameter input. if true, the program will close with errorCode -1;
 
-	// Let's print this argument
+	// Parameter processing:
+	// Default value, when the program start without any parameters
 	if (argc <= 1)
 	{
 		maxValue = 100;
 	}
-	// To check - does use print some other argument we should check if the argc >= 2
-
+	
+	// Processing parameter -table, -level and -max. For the last two, checking the third parameter for 0 excludes their simultaneous writing
 	if (argc >= 2)
 	{
 		std::string arg1Value = argv[1];
@@ -97,23 +95,29 @@ int main(int argc, char **argv)
 	}
 
 	// Ask about name
-	std::cout << "\n\nHi! Enter your name, please: ";
 	std::string userName;
+
+	std::cout << "\n\nHi! Enter your name, please: ";
 	std::cin >> userName;
 
 	std::cout << "Ok, " << userName << ", let's play!" << std::endl;
-	std::cout << "Computer guessed the number in the range from 0 to " << maxValue << ".\n"
+	std::cout << "Computer pick the number in the range from 0 to " << maxValue << ".\n"
 			  << "Try to guess it!" << std::endl;
+	
 	std::srand((unsigned)std::time(nullptr));
 
-	int attempts = check_value((std::rand() % maxValue));
+	// Declare a variable and run the function of the guessing process, the result of which will be assigned to the variable
+	int attempts = check_value((std::rand() % maxValue)); 
+
+	//Print result
 	std::cout << "You need " << attempts << (attempts > 1 ? " attempts" : " attempt") << " to guess the number.\n\n"
 			  << "Now let's see the best results of this game!\n" << std::endl;
 	
-	
+	// Put the best score (or new player with his score) to the table "high_scores"
 	putBestScore(userName, attempts);
 
+	// Print table
 	printTable();
 
-	exit(0);
+	return 0;
 }
