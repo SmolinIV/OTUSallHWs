@@ -6,7 +6,7 @@
 
 // Guessing proccess. We ask the player for a number, compare it with the guessed one. If it doesn't match, we suggest whether the player's number is greater or less.
 // If it matches, we report victory and return the number of attempts.
-int check_value(const int guessedNumber)
+int check_value(int guessedNumber)
 {
 
 	int userNumber;		// Nubmer entered by user
@@ -14,12 +14,10 @@ int check_value(const int guessedNumber)
 	while (true)
 	{
 		std::cout << "Enter your guess: ";
-		std::cin >> userNumber;
-
-		if(std::cin.fail())
+		
+		if(!getValue(userNumber))
 		{
-			std::cout << "Incorrect input." << std::endl;
-			exit(-1);
+			return -1;
 		}
 
 		++attempts;
@@ -40,4 +38,17 @@ int check_value(const int guessedNumber)
 	}
 
 	return attempts;
+}
+
+bool getValue(int& value)
+{
+	std::cin >> value;
+
+	if(std::cin.fail())
+		{
+			std::cout << "Incorrect input." << std::endl;
+			return false;
+		}
+
+		return true;
 }

@@ -3,17 +3,16 @@
 #include <vector>
 #include <string>
 #include <iomanip>
-#include <conio.h>
 
 // Print table with high scores from file
-void printTable()
+bool printTable()
 {
 	const std::string highScoresFilename = "high_scores.txt";
 	std::ifstream inFile{highScoresFilename};
 	if (!inFile.is_open())
 	{
 		std::cout << "Failed to open file for read: " << highScoresFilename << "!" << std::endl;
-		exit(-1);
+		return false;
 	}
 
 	std::cout << "High scores table:" << std::endl;
@@ -38,13 +37,13 @@ void printTable()
 	}
 	inFile.close();
 
-	exit(0);
+	return true;
 	
 }
 
 // Entering new date into the table. Check if the player is in the table. If there is, we record the result of the game if it is better 
 // than the current one in the table. If the player is new - write to the end of the file.
-void putBestScore(std::string userName, int userScore)
+bool putBestScore(const std::string& userName, int userScore)
 {
     const std::string highScoresFilename = "high_scores.txt";
 	std::string name,				// name read from current table
@@ -60,7 +59,7 @@ void putBestScore(std::string userName, int userScore)
 	if (!fFile.is_open())
 	{
 		std::cout << "Failed to open file for read: " << highScoresFilename << "!" << std::endl;
-		exit(-1);
+		return false;
 	}
 
 	while (true)
@@ -79,7 +78,7 @@ void putBestScore(std::string userName, int userScore)
 			if (userScore > std::stoi(score))
 			{
 				fFile.close();
-				return;
+				return true;
 			}
 		}
 		fFile.ignore();
@@ -97,7 +96,7 @@ void putBestScore(std::string userName, int userScore)
 		if (!fFile.is_open())
 		{
 			std::cout << "Failed to open file for write: " << highScoresFilename << "!" << std::endl;
-			exit(-1);
+			return false;
 		}
 		fFile.seekp(namePositionInTheTable - nameInTheTableLength, std::ios_base::beg);
 		fFile << userName << " "  << std::setw(4) << std::left << userScore;
@@ -108,11 +107,13 @@ void putBestScore(std::string userName, int userScore)
 		if (!fFile.is_open())
 	{
 		std::cout << "Failed to open file for write: " << highScoresFilename << "!" << std::endl;
-		exit(-1);
+		return false;
 	}
 	// The new score overwrite the current one taking into account the digits of the number
 		fFile << userName << " " << std::setw(4) << std::left<< userScore << std::endl;
 	}
 
 	fFile.close();
+
+	return true;
 }

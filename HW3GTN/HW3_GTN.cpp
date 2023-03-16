@@ -1,9 +1,11 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
 #include "check_value.h"
 #include "tableActions.h"
 
+//  4 5 6 7 8 9
 int main(int argc, char **argv)
 {
 
@@ -98,7 +100,7 @@ int main(int argc, char **argv)
 	std::string userName;
 
 	std::cout << "\n\nHi! Enter your name, please: ";
-	std::cin >> userName;
+	std::getline(std::cin, userName);
 
 	std::cout << "Ok, " << userName << ", let's play!" << std::endl;
 	std::cout << "Computer pick the number in the range from 0 to " << maxValue << ".\n"
@@ -109,15 +111,23 @@ int main(int argc, char **argv)
 	// Declare a variable and run the function of the guessing process, the result of which will be assigned to the variable
 	int attempts = check_value((std::rand() % maxValue)); 
 
+	if (attempts < 0)
+	{
+		return -1;
+	}
+
 	//Print result
 	std::cout << "You need " << attempts << (attempts > 1 ? " attempts" : " attempt") << " to guess the number.\n\n"
 			  << "Now let's see the best results of this game!\n" << std::endl;
 	
 	// Put the best score (or new player with his score) to the table "high_scores"
-	putBestScore(userName, attempts);
-
-	// Print table
-	printTable();
-
-	return 0;
+	if (putBestScore(userName, attempts))
+	{ 
+		// Print table
+		return printTable() ? 0 : 1;
+	}
+	else
+	{
+		return -1;
+	}
 }
