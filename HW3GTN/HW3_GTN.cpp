@@ -5,7 +5,7 @@
 #include "check_value.h"
 #include "tableActions.h"
 
-//  4 5 6 7 8 9
+//  6 7 8 9
 int main(int argc, char **argv)
 {
 
