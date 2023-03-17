@@ -3,7 +3,7 @@
 
 //Function prototypes:
 // Print table
-void printTable();
+bool printTable();
 
 // Put new player to the table "high_scores" or put better score of existing player
-void putBestScore(std::string name, int score);
+bool putBestScore(const std::string& name, int score);

@@ -38,6 +38,7 @@ int main(int argc, char **argv)
 			else
 			{
 				printTable();
+				return 0;
 			}
 		}
 		else if (arg1Value == "-max")
