@@ -1,3 +1,4 @@
+#pragma once
 #include "interfaces.hpp"
 
 // Расчёт минимального значения
