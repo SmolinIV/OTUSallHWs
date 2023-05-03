@@ -22,8 +22,6 @@ public:
 
 	ASTNode(const std::string &repr, ASTNode *lhs, ASTNode *rhs);
 
-	ASTNode::ASTNode(ASTNode *exprRoot);
-
 	ASTNode(const ASTNode &other) = delete;
 
 	ASTNode &operator=(const ASTNode &other)

@@ -82,13 +82,3 @@ public:
           lhs_{lhs},
           rhs_{rhs} {}
 };
-
-class inBraces : public ASTNode
-{
-private:
-    ASTNode *exprRoot_;
-
-public:
-    inBraces(ASTNode *exprRoot)
-        : ASTNode(exprRoot), exprRoot_{exprRoot} {}
-};
