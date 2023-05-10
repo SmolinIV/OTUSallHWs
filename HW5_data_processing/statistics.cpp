@@ -30,7 +30,7 @@ class Max : public IStatistics {
 private: 
 	double m_max;
 public: 
-	Max() : m_max{std::numeric_limits<double>::min()} {}
+	Max() : m_max{std::numeric_limits<double>::lowest()} {}
 
 	void update(double next, const IStatistics* other = nullptr) override {
 		if (next > m_max) {
