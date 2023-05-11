@@ -1,6 +1,8 @@
-#include "interfaces.hpp"
-#include "statistics.cpp"
-
+#include "min.hpp"
+#include "max.hpp"
+#include "mean.hpp"
+#include "std_deviation.hpp"
+#include "percentile.hpp"
 
 int main() {
 
@@ -31,16 +33,14 @@ int main() {
 			case Stats::MIN:
 			case Stats::MAX:
 			case Stats::MEAN:
+			case Stats::PERCENTILE90:
+			case Stats::PERCENTILE95:
 				statistics[i]->update(val);
 				break;
 			case Stats::DEVIATION:
 				statistics[i]->update(val, statistics[i - 1]);
 				break;
-			case Stats::PERCENTILE90:
-				statistics[i]->update(val);
-				break;
-			case Stats::PERCENTILE95:
-				statistics[i]->update(val);
+				default:
 				break;
 			}
 		}
