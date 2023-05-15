@@ -1,29 +1,23 @@
 ﻿#include <iostream>
 #include "Vect.hpp"
+#include <vector>
+
 
 int main() {
-	Vect<int, 1> my_array{ 10 };
-	int i = 1;
-	std::cout << i++ << "arr:\n";
-	my_array.printArr();
-	std::cout << "Size = " << my_array.size() << "\nCapacity = " << my_array.capacity() << std::endl;
+	Row<int> arr{ 1,2,3,4,5,6,8,9,10};
 
-	my_array.push_back(3);
-	std::cout << i++ << "arr:\n";
-	my_array.printArr();
-	std::cout << "Size = " << my_array.size() << "\nCapacity = " << my_array.capacity() << std::endl;
+	arr.print();
 
-	my_array.push_back(2);
-	std::cout << i++ << "arr:\n";
-	my_array.printArr();
-	std::cout << "Size = " << my_array.size() << "\nCapacity = " << my_array.capacity() << std::endl;
+	arr.insert(2, 12);
 
-	for (int k = 0; k < 10; k++) {
-		my_array.push_back(k + 3);
-		std::cout << i++ << "arr:\n";
-		my_array.printArr();
-		std::cout << "Size = " << my_array.size() << "\nCapacity = " << my_array.capacity() << std::endl;
-	}
+	arr.print();
 
-	std::cout << my_array[0] << '\t' << my_array[1] << std::endl;
+	std::vector<int> v{ 0,4,5};
+
+	std::cout << v.size();
+
+	v.erase(v.begin());
+
+	std::cout << v.size();
+
 }
