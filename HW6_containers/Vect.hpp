@@ -13,6 +13,7 @@ private:
 	const int r_koef = 2;
 
 	Iterator<T> r_iter;
+	void increase_capacity();
 
 public:
 
@@ -28,13 +29,13 @@ public:
 
 	void push_back(const T& value) override;
 
-	void increase_capacity();
 
 	void insert(unsigned int index, const T& value) override;
 
 	void erase(unsigned int index) override;
 
 	Iterator<T> begin();
+	Iterator<T> end();
 
 	~Row() {
 		delete[] r_arr;

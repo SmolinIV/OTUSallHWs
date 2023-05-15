@@ -70,7 +70,7 @@ void Row<T>::insert(unsigned int index, const T& value)
 // Удаление элемента из заданной ячейки
 TEMPL_CONT
 void Row<T>::erase(unsigned int index) {
-	for (int i = index; i < r_last; i++) {
+	for (int i = index - 1; i < r_last; i++) {
 		std::swap(r_arr[i], r_arr[i + 1]);
 	}
 	r_last = --r_size;
@@ -83,8 +83,8 @@ Iterator<T> Row<T>::begin() {
 	return r_iter;
 }
 
-
-//TEMPL_CONT
-//My_Iterator<T> Row<T>::end() const {
-//	return &r_arr[r_last];
-//}
+TEMPL_CONT
+Iterator<T> Row<T>::end() {
+	r_iter = &r_arr[r_last];
+	return r_iter;
+}
