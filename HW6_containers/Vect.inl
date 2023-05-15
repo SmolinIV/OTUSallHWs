@@ -5,50 +5,51 @@
 // Конструктор "по умолчанию"
 TEMPL_CONT
 Row<T>::Row() {
-	v_size = N;
-	v_capacity = N * v_koef;
-	v_arr = new T[v_capacity];
-	v_last = 0;
+	r_size = 5;
+	r_capacity = r_size * r_koef;
+	r_arr = new T[r_capacity];
+	r_last = 0;
 }
 
-// Конструктор с параметрами (с делигированием к конструктору по умолчанию)
+// Конструктор с параметрами
 TEMPL_CONT
-Row<T>::Row(std::initializer_list<T> list) : Row() {
+Row<T>::Row(std::initializer_list<T> list) {
+	r_size = list.size();
+	r_capacity = r_size * r_koef;
+	r_arr = new T[r_capacity];
+	r_last = 0;
 	for (auto i : list)
 	{
 		push_back(i);
 	}
-	//for (int i = v_last; i < v_size; i++)
-	//{
-	//	v_arr[i] = (T)0;
-	//}
 }
 
 // Изменние ёмкости вектора
 TEMPL_CONT
 void Row<T>::increase_capacity() {
-	v_capacity = v_size * v_koef;
-	T* temp_arr = new T[v_capacity];
+	r_capacity = r_size * r_koef;
+	T* temp_arr = new T[r_capacity];
 
-	for (int i = 0; i < v_size; i++) {
-		temp_arr[i] = v_arr[i];
+	for (int i = 0; i < r_size; i++) {
+		temp_arr[i] = r_arr[i];
 	}
 
-	delete[] v_arr;
-	v_arr = temp_arr;
+	delete[] r_arr;
+	r_arr = temp_arr;
 	temp_arr = nullptr;
 }
+
 
 // Добавление элемента в конец последовательности уже находящихся в контейнере элементов (не в конец контейнера!)
 TEMPL_CONT 
 void Row<T>::push_back(const T& value) {
-	if (v_last < v_capacity) {
-		v_arr[v_last] = value;
+	if (r_last < r_capacity) {
+		r_arr[r_last] = value;
 
-		if (v_last == v_size) {
-			++v_size;
+		if (r_last == r_size) {
+			++r_size;
 		}
-		++v_last;
+		++r_last;
 	}
 	else {
 		this->increase_capacity();
@@ -56,18 +57,34 @@ void Row<T>::push_back(const T& value) {
 	}
 }
 
+//Вставка элемента в указанную ячейку
 TEMPL_CONT
-void Row<T, N>::insert(unsigned int index, const T& value)
+void Row<T>::insert(unsigned int index, const T& value)
 {
 	push_back(value);
-	for (int i = v_last - 1; i > index; i--) {
-		std::swap(v_arr[i], v_arr[i - 1]);
+	for (int i = r_last - 1; i > index; i--) {
+		std::swap(r_arr[i], r_arr[i - 1]);
 	}
 }
+
+// Удаление элемента из заданной ячейки
+TEMPL_CONT
+void Row<T>::erase(unsigned int index) {
+	for (int i = index; i < r_last; i++) {
+		std::swap(r_arr[i], r_arr[i + 1]);
+	}
+	r_last = --r_size;
+}
+
 
 TEMPL_CONT
-void Row<T,N>::erase(unsigned int index) {
-	for (int i = index; i < v_last; i++) {
-
-	}
+Iterator<T> Row<T>::begin() {
+	r_iter = &r_arr[0];
+	return r_iter;
 }
+
+
+//TEMPL_CONT
+//My_Iterator<T> Row<T>::end() const {
+//	return &r_arr[r_last];
+//}

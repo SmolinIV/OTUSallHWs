@@ -1,23 +1,28 @@
 ﻿#include <iostream>
 #include "Vect.hpp"
-#include <vector>
+
+template <typename T>
+void print_arr_data(const Row<T> &arr);
 
 
 int main() {
-	Row<int> arr{ 1,2,3,4,5,6,8,9,10};
+	Row<int> arr{ 1,2,3 };
 
+	print_arr_data(arr);
+
+	arr.erase(1);
+	print_arr_data(arr);
+
+	auto iter = arr.begin();
+	std::cout << iter << std::endl;
+}
+
+
+template <typename T>
+void print_arr_data(const Row<T> &arr)
+{
+	std::cout 
+		<< "size = " << arr.size() << '\n' 
+		<< "capacity = " << arr.capacity() << '\n';
 	arr.print();
-
-	arr.insert(2, 12);
-
-	arr.print();
-
-	std::vector<int> v{ 0,4,5};
-
-	std::cout << v.size();
-
-	v.erase(v.begin());
-
-	std::cout << v.size();
-
 }
