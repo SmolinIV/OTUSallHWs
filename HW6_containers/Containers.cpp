@@ -37,13 +37,13 @@ int main() {
 	arr.insert(0, 10);
 	print_arr_data(arr);
 	
-	std::cout << "\n-------------\nInserting a value into the middle of an array using method INSERT():\n";
+	std::cout << "-------------\n\nInserting a value into the middle of an array using method INSERT():\n";
 	arr.insert(arr.size() / 2, 20);
 	print_arr_data(arr);
 
-	std::cout << "\n-------------\nReducing the array capacity to the actual size using method SHRINK_TO_FIT():\n";
+	std::cout << "-------------\n\nReducing the array capacity to the actual size using method SHRINK_TO_FIT():\n";
 	std::cout << "Before reducing:\n";
-	std::cout << "size = " << arr.size() << '\n' << "capacity = " << arr.capacity() << '\n';
+	std::cout << "size = " << arr.size() << '\n' << "capacity = " << arr.capacity() << "\n\n";
 
 	arr.shrink_to_fit();
 
