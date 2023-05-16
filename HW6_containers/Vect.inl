@@ -11,6 +11,24 @@ Row<T>::Row() {
 	r_last = 0;
 }
 
+TEMPL_CONT
+Row<T>::Row(Row&& other) {
+	r_size = other.r_size;
+	r_capacity = other.r_capacity;
+	r_last = other.r_last;
+	r_arr = new T[r_capacity];
+	for (int i = 0; i < r_last; i++)
+	{
+		r_arr[i] = other.r_arr[i];
+	}
+	other.r_size = nullptr;
+	other.r_last = nullptr;
+	other.r_capacity = nullptr;
+	other.r_arr = nullptr;
+
+}
+
+
 // Конструктор с параметрами
 TEMPL_CONT
 Row<T>::Row(std::initializer_list<T> list) {
@@ -76,6 +94,18 @@ void Row<T>::erase(unsigned int index) {
 	r_last = --r_size;
 }
 
+TEMPL_CONT
+void Row<T>::shrink_to_fit() {
+	T* temp_arr = new T[r_size];
+	for (int i = 0; i < r_size; i++)
+	{
+		temp_arr[i] = r_arr[i];
+	}
+	delete[] r_arr;
+	r_arr = temp_arr;
+	temp_arr = nullptr;
+	r_capacity = r_size;
+}
 
 TEMPL_CONT
 Iterator<T> Row<T>::begin() {

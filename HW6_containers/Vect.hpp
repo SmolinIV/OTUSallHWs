@@ -18,6 +18,7 @@ private:
 public:
 
 	Row();
+	Row(Row&& other);
 
 	Row(std::initializer_list<T> list);
 
@@ -34,8 +35,11 @@ public:
 
 	void erase(unsigned int index) override;
 
+	void shrink_to_fit();
 	Iterator<T> begin();
 	Iterator<T> end();
+
+
 
 	~Row() {
 		delete[] r_arr;
