@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "Vect.hpp"
 #include <vector>
+#include "bidirectional_list.hpp"
 
 //Прототип функции вывода массива на экран (с использованием итератора)
 template <typename T>
@@ -11,12 +12,12 @@ int main() {
 
 	std::cout << "------------------------------------SEQUENTIAL DYNAMIC ARRAY------------------------------------\n";
 	std::cout << "\nCreating an array:\n";
-	Row<int> arr{0,1,2,3};
+	Row<int> arr{ 0,1,2,3 };
 	print_arr_data(arr);
 
 	std::cout << "-------------\n\nGet data about the size and capacity of an array using the SIZE() and CAPACITY() methods:\n";
 	std::cout << "size = " << arr.size() << '\n' << "capacity = " << arr.capacity() << '\n';
-
+	/*
 	std::cout << "-------------\n\nAdding an array using method PUSH_BACK(*value):\n";
 	for (int i = 4; i != 10; ++i) {
 		arr.push_back(i);
@@ -32,11 +33,11 @@ int main() {
 	arr.erase(5);
 	arr.erase(3);
 	print_arr_data(arr);
-	
+
 	std::cout << "-------------\n\nInserting a value at the beginning of an array using method INSERT():\n";
 	arr.insert(0, 10);
 	print_arr_data(arr);
-	
+
 	std::cout << "-------------\n\nInserting a value into the middle of an array using method INSERT():\n";
 	arr.insert(arr.size() / 2, 20);
 	print_arr_data(arr);
@@ -51,8 +52,12 @@ int main() {
 	std::cout << "size = " << arr.size() << '\n' << "capacity = " << arr.capacity() << '\n';
 
 	std::cout << std::endl;
-}
+	*/
 
+	Bidirectional_list<int> list{1,2,3};
+	
+	std::cout << list[0] << '\n' << list[1] << '\n' << list[2] << '\n' << list.size() << '\n';
+}
 
 template <typename T>
 void print_arr_data(Row<T> &arr)

@@ -11,6 +11,7 @@ Row<T>::Row() {
 	r_last = 0;
 }
 
+// Конструктор копирования
 TEMPL_CONT
 Row<T>::Row(Row&& other) {
 	r_size = other.r_size;

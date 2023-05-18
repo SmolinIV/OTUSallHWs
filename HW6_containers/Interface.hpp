@@ -18,9 +18,6 @@ public:
 
 	virtual void erase(unsigned int index) = 0;
 
-	//virtual Iterator<T> begin() = 0;
-	//virtual T* end() const = 0;
-
 };
 
 template <typename T>
