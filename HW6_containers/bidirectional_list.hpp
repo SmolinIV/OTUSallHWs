@@ -14,6 +14,7 @@ private:
 
 	Cell* bd_first;
 	Cell* bd_last;
+	Cell* bd_temp; //Указатель для временного хранения. Создан здесь, чтобы не оставить незанулённых указателей. Зануляется в дистркуторе.
 public:
 
 	Bidirectional_list();
@@ -24,9 +25,9 @@ public:
 
 	void push_back(const T& value);
 
-	T& operator[](unsigned int index) const;
+	T& operator[](unsigned int index);
 
-	//virtual void insert(unsigned int index, const T& value);
+	void insert(unsigned int index, const T& value);
 
 	//virtual void erase(unsigned int index);
 
@@ -36,6 +37,9 @@ public:
 			bd_first = bd_first->rhs;
 		}
 		element = nullptr;
+		bd_first = nullptr;
+		bd_last = nullptr;
+		bd_temp = nullptr;
 		std::cout << "All cells are destructed." << std::endl;
 	}
 };

@@ -26,34 +26,39 @@ TEMPL_CONT
 void Bidirectional_list<T>::push_back(const T& value) {
 	if (bd_size == 0) {
 		bd_last->value = value;
-
 	}
 	else {
-		Cell* temp = new Cell;
-		temp->lhs = bd_last;
-		bd_last->rhs = temp;
-		temp->value = value;
-		temp->rhs = nullptr;
-		bd_last = temp;
-		temp = nullptr;
+		bd_temp = new Cell;
+		bd_temp->lhs = bd_last;
+		bd_last->rhs = bd_temp;
+		bd_temp->value = value;
+		bd_temp->rhs = nullptr;
+		bd_last = bd_temp;
+		bd_temp = nullptr;
 	}
 	++bd_size;
 }
 
+//Перегрузка оператора индексорвания для возврата знчения ячейки (с выбором более короткого пути нахождения - старт с начала или с конца)
 TEMPL_CONT
-T& Bidirectional_list<T>::operator[](unsigned int index) const {
-	Cell* temp;
+T& Bidirectional_list<T>::operator[](unsigned int index) {
+	//Cell* temp;
 	if (index <= bd_size / 2) {
-		temp = bd_first;
+		bd_temp = bd_first;
 		for (int i = 0; i < index; i++) {
-			temp = temp->rhs;
+			bd_temp = bd_temp->rhs;
 		}
 	} 
 	else {
-		temp = bd_last;
+		bd_temp = bd_last;
 		for (int i = bd_size - 1; i > index; i--) {
-			temp = temp->lhs;
+			bd_temp = bd_temp->lhs;
 		}
 	}
-	return temp->value;
+	return bd_temp->value;
+}
+
+TEMPL_CONT
+void Bidirectional_list<T>::insert(unsigned int index, const T& value) {
+
 }

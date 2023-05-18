@@ -26,7 +26,7 @@ public:
 
 	std::size_t size() const override { return r_size; }
 
-	T& operator[](unsigned int index) const override { return r_arr[index]; }
+	T& operator[](unsigned int index) override { return r_arr[index]; }
 
 	void push_back(const T& value) override;
 
