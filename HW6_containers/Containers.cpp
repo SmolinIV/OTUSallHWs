@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include "Vect.hpp"
-#include <vector>
 #include "bidirectional_list.hpp"
+#include "unidirectional_list.hpp"
 
 //Прототип функции вывода массива на экран (с использованием итератора)
 template <typename T>
@@ -56,7 +56,61 @@ int main() {
 
 	Bidirectional_list<int> list{1,2,3};
 	
-	std::cout << list[0] << '\n' << list[1] << '\n' << list[2] << '\n' << list.size() << '\n';
+	list.push_back(4);
+	list.push_back(5);
+	for (int i = 0; i < list.size(); i++)
+	{
+	std::cout << list[i] << "  ";
+	}
+
+	list.insert(1, 10);
+	list.insert(4, 11);
+	list.insert(6, 12);
+
+	for (int i = 0; i < list.size(); i++)
+	{
+		std::cout << list[i] << "  ";
+	}
+	std::cout << "\n\n";
+	list.erase(list.size() - 1);
+	for (int i = 0; i < list.size(); i++)
+	{
+		std::cout << list[i] << "  ";
+	}
+	std::cout << "\n\n";
+	list.erase(0);
+	for (int i = 0; i < list.size(); i++)
+	{
+		std::cout << list[i] << "  ";
+	}
+	list.erase(1);
+	std::cout << "\n\n";
+
+	for (int i = 0; i < list.size(); i++)
+	{
+		std::cout << list[i] << "  ";
+	}
+	std::cout << "\n\n";
+	std::cout << list.size() << std::endl;
+
+	std::cout << "------UNIDIRECTIONAL LIST!!!--------\n\n";
+
+	Unidirectional_list<int> list2{ 1,2,3 };
+
+	list2.push_back(4);
+	list2.push_back(5);
+	list2.push_back(6);
+	for (int i = 0; i < list2.size(); i++)
+	{
+		std::cout << list2[i] << "  ";
+	}
+
+	
+	std::cout << "\n" << list2.size()  << "\n\n";
+	
+
+
+	
 }
 
 template <typename T>
