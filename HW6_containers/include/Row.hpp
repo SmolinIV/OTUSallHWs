@@ -17,8 +17,8 @@ private:
 public:
 
 	Row();
-	Row(Row&& other);
-
+	explicit Row(Row&& other);
+	explicit Row(const Row& other);
 	Row(std::initializer_list<T> list);
 
 	std::size_t capacity() const { return r_capacity; }
@@ -46,5 +46,5 @@ public:
 	}
 };
 
-#include "Row.inl"
+#include "../src/Row.inl"
 

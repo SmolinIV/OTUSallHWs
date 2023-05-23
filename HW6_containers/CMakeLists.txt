@@ -4,9 +4,6 @@ project(Containers CXX)
 
 add_executable(Containers 
 src/Containers.cpp
-src/Row.inl
-src/bidirectional_list.inl
-src/unidirectional_list.inl
 )
 
 target_include_directories(Containers PRIVATE include)

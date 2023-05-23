@@ -4,15 +4,29 @@
 // Конструктор "по умолчанию"
 TEMPL_CONT
 Row<T>::Row() {
-	r_size = 5;
-	r_capacity = r_size * r_koef;
+	r_size = 0;
+	r_capacity = 5;
 	r_arr = new T[r_capacity];
 	r_last = 0;
 }
 
-// Конструктор копирования (используется в итераторе)
+// Конструктор переноса
 TEMPL_CONT
 Row<T>::Row(Row&& other) {
+	r_size = other.r_size;
+	r_capacity = other.r_capacity;
+	r_last = other.r_last;
+	r_arr = other.r_arr;
+	other.~Row();
+	//other.r_size = nullptr;
+	//other.r_last = nullptr;
+	//other.r_capacity = nullptr;
+	//other.r_arr = nullptr;
+}
+
+//Конструктор копирования
+TEMPL_CONT
+Row<T>::Row(const Row& other) {
 	r_size = other.r_size;
 	r_capacity = other.r_capacity;
 	r_last = other.r_last;
@@ -21,11 +35,6 @@ Row<T>::Row(Row&& other) {
 	{
 		r_arr[i] = other.r_arr[i];
 	}
-	other.r_size = nullptr;
-	other.r_last = nullptr;
-	other.r_capacity = nullptr;
-	other.r_arr = nullptr;
-
 }
 
 // Конструктор с параметрами

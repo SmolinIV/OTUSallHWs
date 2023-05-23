@@ -37,10 +37,13 @@ public:
 
 	~Bidirectional_list() {
 		while (bd_first) {
-			delete bd_first->lhs;
+			bd_temp = bd_first->rhs;
 			bd_first->lhs = nullptr;
-			bd_first = bd_first->rhs;
+			bd_first->rhs = nullptr;
+			delete bd_first;
+			bd_first = bd_temp;
 		}
+
 		element = nullptr;
 		bd_first = nullptr;
 		bd_last = nullptr;
@@ -49,4 +52,4 @@ public:
 	}
 };
 
-#include "bidirectional_list.inl"
+#include "..\src\bidirectional_list.inl"
