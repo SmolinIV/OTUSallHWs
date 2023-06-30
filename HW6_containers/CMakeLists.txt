@@ -12,13 +12,6 @@ src/Containers.cpp
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
-add_executable(run_tests 
-tests/tests.cpp)
-
-enable_testing()
-
-add_subdirectory(tests)
-
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
 
 

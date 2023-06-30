@@ -8,10 +8,13 @@ set(COMMON_SRCS
 "../src/Containers.cpp"
 )
 
-add_executable(${PROJECT_NAME} tests.cpp ${COMMON_SRCS})
+add_executable(${PROJECT_NAME} 
+Row_tests.cpp
+unidirectional_list_tests.cpp
+ ${COMMON_SRCS})
+
 
 find_package(GTest CONFIG REQUIRED)
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
 target_link_libraries(${PROJECT_NAME} PRIVATE
 gtest
