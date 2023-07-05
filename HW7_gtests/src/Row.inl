@@ -18,10 +18,6 @@ Row<T>::Row(Row&& other) {
 	r_last = other.r_last;
 	r_arr = other.r_arr;
 	other.~Row();
-	//other.r_size = nullptr;
-	//other.r_last = nullptr;
-	//other.r_capacity = nullptr;
-	//other.r_arr = nullptr;
 }
 
 //Конструктор копирования
@@ -96,7 +92,7 @@ void Row<T>::insert(unsigned int index, const T& value)
 // Удаление элемента из заданной ячейки
 TEMPL_CONT
 void Row<T>::erase(unsigned int index) {
-	for (int i = index - 1; i < r_last; i++) {
+	for (int i = index; i < r_last - 1; i++) {
 		std::swap(r_arr[i], r_arr[i + 1]);
 	}
 	r_last = --r_size;
