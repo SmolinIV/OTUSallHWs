@@ -1,9 +1,8 @@
 #include <gtest/gtest.h>
-#include "../src/include/Row.hpp"
+#include "../src/include/Row.hpp"             
 
-
-// 1 2 3
-Row<int> arr{1, 2, 3};                 
+    // 1 2 3
+    Row<int> arr{1, 2, 3}; 
 
 TEST(Row_tests, create_and_check_size) {
     EXPECT_TRUE(arr.size() == 3);
@@ -46,11 +45,4 @@ TEST(Row_tests, check_copy) {
     for (int i = 0; i < arr.size(); i++) {
         EXPECT_TRUE(arr1[i] == arr[i]);
     }
-}
-
-
-int main(int argc, char** argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
