@@ -23,7 +23,7 @@ std::string tolower(const std::string &str);
 
 void count_words(std::vector<std::string>&, Counter&, int start_line, int end_line);
 
-void print_topk(std::ostream& stream, const std::vector<Counter>&, const size_t k);
+void print_topk(std::ostream& stream, std::vector<Counter>&, const size_t k);
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -89,16 +89,23 @@ void count_words(std::vector<std::string>& text, Counter& counter, int start_lin
 }
 
 
-
-void print_topk(std::ostream& stream, const std::vector<Counter>& counter, const size_t k) {
-    std::vector<Counter::const_iterator> words;
-    words.reserve(counter[0].size());
+void print_topk(std::ostream& stream, std::vector<Counter>& counter, const size_t k) {
+    std::vector<Counter::iterator> words;
+    words.reserve(100000);
+    bool new_element = true;
     for (int i = 0; i < counter.size(); i++) {
-        for (auto it = std::cbegin(counter[i]); it != std::cend(counter[i]); ++it) {
+        for (auto it = std::begin(counter[i]); it != std::end(counter[i]); ++it) {
             for (int j = 0; j < words.size(); j++) {
-                if (words[j]->first == it->first) { words[j]->second += it->second; }
-
+                if (words[j]->first == it->first) { 
+                    words[j]->second += it->second;
+                    new_element = false;
+                    break;
+                }
             }
+            if (new_element) {
+                words.push_back(it);
+            }
+            new_element = true;
         }
     }
     words.shrink_to_fit();
@@ -109,7 +116,7 @@ void print_topk(std::ostream& stream, const std::vector<Counter>& counter, const
 
     std::for_each(
         std::begin(words), std::begin(words) + k,
-        [&stream](const Counter::const_iterator &pair) {
+        [&stream](Counter::iterator &pair) {
             stream << std::setw(4) << pair->second << " " << pair->first
                       << '\n';
         });
